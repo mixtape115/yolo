@@ -42,8 +42,8 @@ RUN echo "root:root" | chpasswd \
 USER ${USER_NAME}
 WORKDIR ${wkdir}
 
-RUN git clone https://github.com/meituan/YOLOv6 && \
-    cd YOLOv6 && \
-    pip3 install -r requirements.txt
+RUN git clone https://github.com/meituan/YOLOv6 
+    # cd YOLOv6 && \
+    # pip3 install -r requirements.txt
 
 RUN sudo chown -hR ${USER_NAME}:${USER_NAME} ${wkdir}
