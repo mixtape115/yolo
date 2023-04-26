@@ -12,23 +12,44 @@ RUN apt-get update --fix-missing && \
     cmake \
     git \
     curl \
+    wget \
     vim \
     python3 \
     python3-pip \
     graphviz \
     opencv-data \
+    libgl1-mesa-dev \
+    build-essential \
+    libssl-dev \
+    libffi-dev \
+    python3-dev \
+    # ca-certificates \
+    # libssl1.0.0 \
+    # libssl-dev \
+    # libglib2.0-0 \
+    # libsm6 \
+    # libxext6 \
+    # libxrender-dev \
+    # build-essential \
+    # libssl-dev \
+    # libffi-dev \
+    # libxml2-dev \
+    # libxslt1-dev \
+    # zlib1g-dev \
+    # libhdf5-serial-dev \
+    # hdf5-tools \
     && apt-get -y clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN python3 -m pip install --upgrade pip setuptools
+RUN python3 -m pip install --upgrade pip setuptools 
 
 RUN python3 -m pip install numpy
 RUN python3 -m pip install opencv-python
 # RUN pip3 install -U pip wheel setuptools japanize-matplotlib
-RUN pip3 install jupyter click numpy matplotlib seaborn pandas tqdm timm
+RUN pip3 install jupyter click numpy matplotlib seaborn pandas tqdm timm cython addict
 # RUN pip install torch==1.10.1+cu111 torchvision==0.11.2+cu111 torchaudio==0.10.1 -f https://download.pytorch.org/whl/torch_stable.html
 RUN pip3 install torch==1.12.1+cu116 torchvision==0.13.1+cu116 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116
-RUN pip3 install visdom jupyter torchviz torchinfo japanize_matplotlib
+RUN pip3 install visdom jupyter torchviz torchinfo japanize_matplotlib tensorboard
 ENV USER_NAME=user
 ENV USER_UID=1000
 ARG wkdir=/home/${USER_NAME}
@@ -42,7 +63,11 @@ RUN echo "root:root" | chpasswd \
 USER ${USER_NAME}
 WORKDIR ${wkdir}
 
-RUN git clone https://github.com/meituan/YOLOv6 
+# RUN git clone https://github.com/philferriere/cocoapi.git 
+    # && cd cocoapi/PythonAPI \
+    # && python3 setup.py build_ext install
+
+# RUN git clone https://github.com/meituan/YOLOv6 
     # cd YOLOv6 && \
     # pip3 install -r requirements.txt
 
